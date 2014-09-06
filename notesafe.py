@@ -1,10 +1,8 @@
 import os
-from flask import Flask
-from flask import render_template
+from flask import Flask, request
 
-app = Flask(__name__)
+app = Flask(__name__, static_url_path='')
 
 @app.route('/')
-def home():
-	return render_template('/content/index.html', title='Note Safe - A anonymous note storage app')
-
+def root():
+	return app.send_static_file('index.html')
