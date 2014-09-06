@@ -1,0 +1,232 @@
+body{
+  background-color: #ebebeb;
+}
+header{
+  padding: 7% 0 0 0;
+
+}
+
+h1{
+  font-family: 'Nixie One', cursive; 
+}
+
+.wrapper{
+  max-width: 940px;
+  margin: 0 auto;
+  padding: 3.5% 5%;
+}
+
+
+*, *:before, *:after {
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Nunito', sans-serif;
+  color: #384047;
+}
+
+form {
+  max-width: 300px;
+  margin: 10px auto;
+  padding: 15px 20px 5px 20px;
+  border-radius: 5px;
+  background-color: #f8f8f8
+}
+
+h1 {
+  margin: 0 0 30px 0;
+  text-align: center;
+}
+
+input[type="text"],
+input[type="password"],
+input[type="date"],
+input[type="datetime"],
+input[type="email"],
+input[type="number"],
+input[type="search"],
+input[type="tel"],
+input[type="time"],
+input[type="url"],
+textarea,
+select {
+  background: rgba(255,255,255,0.1);
+  border: none;
+  font-size: 16px;
+  height: auto;
+  margin: 0;
+  outline: 0;
+  padding: 15px;
+  width: 100%;
+  background-color: #e8eeef;
+  color: #8a97a0;
+  box-shadow: 0 1px 0 rgba(0,0,0,0.03) inset;
+  margin-bottom: 15px;
+}
+
+input[type="radio"],
+input[type="checkbox"] {
+  margin: 0 4px 8px 0;
+}
+
+select {
+  padding: 6px;
+  height: 32px;
+  border-radius: 2px;
+}
+
+button {
+  padding: 5% 39px 5% 39px;
+  color: #FFF;
+  background-color: #4bc970;
+  font-size: 18px;
+  text-align: center;
+  font-style: normal;
+  border-radius: 5px;
+  width: 100%;
+  border: 1px solid #3ac162;
+  border-width: 1px 1px 3px;
+  box-shadow: 0 -1px 0 rgba(255,255,255,0.1) inset;
+  margin-bottom: 10px;
+
+}
+
+button:hover{
+  background-color: #398f52;
+  border: 2px solid #398f52;
+}
+
+footer {
+  position:fixed;
+  left: 0;
+  right: 0;
+  height: 30px;
+  width: 100%;
+  background: #999;
+}
+
+fieldset {
+  margin-bottom: 30px;
+  border: none;
+}
+
+legend {
+  font-size: 1.4em;
+  margin-bottom: 10px;
+}
+
+label {
+  display: block;
+  margin-bottom: 8px;
+}
+
+label.light {
+  font-weight: 300;
+  display: inline;
+}
+
+.number {
+  background-color: #5fcf80;
+  color: #fff;
+  height: 30px;
+  width: 30px;
+  display: inline-block;
+  font-size: 0.8em;
+  margin-right: 4px;
+  line-height: 30px;
+  text-align: center;
+  text-shadow: 0 1px 0 rgba(255,255,255,0.2);
+  border-radius: 100%;
+}
+
+@media screen and (min-width: 480px) {
+
+  form {
+    max-width: 480px;
+  }
+
+}
+
+@media screen and (min-width: 660px) {
+
+  form {
+    max-width: 480;
+  }
+
+}
+
+body {
+    padding-bottom: 70px;
+}
+
+@media (max-width: 768px) {
+  .btn-responsive {
+    padding:2px 4px;
+    width: 70px;
+  }
+}
+
+@media (min-width: 769px) and (max-width: 992px) {
+  .btn-responsive {
+    padding:4px 9px;
+    width: 70px;
+  }
+}
+
+.showinline {
+    display: inline block;
+}
+
+.updatebanner {
+    height: 100px;
+    width: 250px;
+    background: #dff0d8;
+    border: 1px solid #d6e9c6;
+
+    border-radius: 10px;
+    
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    margin-top: -50px;
+    margin-left: -125px;
+}
+
+.cancelbanner {
+    height: 100px;
+    width: 250px;
+    background: #fcf8e3;
+
+    border: 1px solid #f2dede;
+    border-radius: 10px;
+    
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    margin-top: -50px;
+    margin-left: -125px;
+}
+
+.updatetext {
+    color: #468847;
+    font-size: 35px;
+    text-align: center;
+    vertical-align: middle;
+    line-height: 90px;
+}
+
+.canceltext {
+    color: #b94a48;
+    font-size: 35px;
+    text-align: center;
+    vertical-align: middle;
+    line-height: 90px;
+}
+
+.deletefile {
+    float: right;
+    margin: auto;
+}

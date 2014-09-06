@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Note Safe</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- custom CSS stuff -->  
+    <link rel="stylesheet" href="css/normalize.css">
+    <link rel="stylesheet" href="css/foundation.css">
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/sticky-footer-navbar.css">
+    <link rel="stylesheet" href="css/main2.css">
+
+    <script src="js/vendor/modernizr.js"></script>
+    
+  </head>
+
+  <body>
+
+    <!-- FAQ page -->
+    <div>
+      <a href="https://www.google.com"><h1>FAQ</h1></a>
+    </div>
+    
+    <!-- New note (SUBMIT) -->
+    <div>
+      <form class="form-inline" role="form">
+        <div class="form-group">
+          <label class="sr-only" for="titleName">Title</label>
+          <input type="text" class="form-control" id="title" placeholder="Title">
+        </div>
+      </form>
+      
+      <form><textarea name="note" placeholder="Enter note here" rows="6"></textarea></form>
+      
+      <div class="wrapper" id="home">
+        <div>
+          <form action="" method="post">
+            <button type="button">Submit</button>
+          </br>
+          <p> </p>
+            <button type="button">Cancel</button>
+          </form>
+        </div>
+      </div>
+      
+    </div>
+    
+    <!-- Update/edit an existing note -->
+    <div>
+      <h2 align="center">Title</h2>
+      
+      <form><textarea name="note" placeholder="Edit note" rows="6"></textarea></form>
+      
+      <div class="wrapper" id="home">
+        <div>
+          <form action="" method="post">
+            <button type="button">Update</button>
+          </br>
+          <p> </p>
+            <button type="button">Cancel</button>
+          </form>
+        </div>
+      </div>
+    </div>
+    
+    <!-- NoteSafe main screen thing -->
+    <div class="showinline">
+      <div class="row">
+        <div class="col-xs-4 col-sm-4">
+          <span class="glyphicon glyphicon-plus"></span>
+        </div>
+      
+        <div class="col-xs-4 col-sm-4">
+          <label>Note Safe</label>        
+        </div>
+      
+        <div class="col-xs-4 col-sm-4">
+          <span class="glyphicon glyphicon-log-out"></span>
+        </div>
+      </div>
+      
+      <div class="panel panel-default">
+        <!-- Default panel contents -->
+        <div class="panel-heading">AW YISS MOTHA FUCKIN NOTES</div>
+      
+        <!-- List group -->
+        <ul class="list-group">
+          <!-- When adding a new item, add <li class="list-group-item"> -->
+          <li class="list-group-item">Cras justo odio</li>
+          <li class="list-group-item">Dapibus ac facilisis in</li>
+          <li class="list-group-item">Morbi leo risus</li>
+          <li class="list-group-item">Porta ac consectetur ac</li>
+          <li class="list-group-item">Vestibulum at eros</li>
+        </ul>
+      </div>
+
+      <!--
+      <div class="footer">
+        <div class="container">
+          <p class="text-muted">FAQ</p>
+        </div>
+      </div>
+      -->
+      
+      <div class="navbar navbar-default navbar-fixed-bottom" role="navigation">
+        <div class="container">
+          <p class="text-muted">FAQ</p>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- UPDATED banner; toggle .hidden to display -->
+    <div class="updatebanner hidden">
+      <p class="updatetext">Updated</p>
+    </div>
+
+    <!-- CANCELLED banner -->
+    <div class="cancelbanner hidden">
+      <p class="canceltext">Cancelled</p>
+    </div>
+    
+    <script src="js/vendor/jquery.js"></script>
+    <script src="js/foundation.min.js"></script>
+    <script>
+      $(document).foundation();
+    </script>
+  </body>
+</html>

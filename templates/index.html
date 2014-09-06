@@ -1,6 +1,183 @@
 <!doctype html>
-<html>
-	<body>
-		<h1>Hello mother fuckers</h1>
-	</body>
+<html class="no-js" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Note Safe</title>
+    <link href='http://fonts.googleapis.com/css?family=Nixie+One|Quicksand' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type=text/css href="{{ url_for('static', filename='bootstrap/cssbootstrap.min.css') }}">
+    <link rel="stylesheet" type=text/css href="{{ url_for('static', filename='css/normalize.css') }}">
+    <link rel="stylesheet" type=text/css href="{{ url_for('static', filename='css/foundation.css') }}">
+    <link rel="stylesheet" type=text/css href="{{ url_for('static', filename='css/main.css') }}">
+    <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+
+    </script>
+    <script src="js/vendor/modernizr.js"></script>
+  </head>
+  <body>
+
+    <div id ="title slide">
+      <header>
+        <h1 align="center">Note Safe</h1>
+      </header>
+    </div>
+ 
+    <div class="wrapper slide current-slide" id="welcome-slide">
+      <form>
+        <button type="button" class="create-btn">Create</button>
+      </br>
+        <button type="button" class="signIn-btn">Sign In</button>
+      </form>
+    </div>
+  
+
+    <div class= "wrapper slide" id="create-slide">
+      <form>
+        <input type="text" placeholder="Username" id="name" name="user_name">
+        <input type="password" placeholder="Password" id="password" name="user_password">
+        <button type="button">Create</button>
+      </form>
+    </div>
+  
+
+    <div class= "wrapper slide" id="login-slide">
+      <form>
+        <input type="text" placeholder="Username" id="name" name="user_name">
+        <input type="password" placeholder="Password" id="password" name="user_password">
+        <button type="button" class="submit-creds">Sign In</button>
+      </form>
+    </div>
+    
+
+    <div class= "wrapper slide" id="enter_secret">
+      <form>
+        <h3 align="center">Enter your secret key</h3>
+        <textarea id="secretkeyinput" placeholder="Copy and paste your secret key here"></textarea>
+        <button type="button" class="submit-creds">Submit</button>
+      </form>
+    </div>
+  
+
+    <div class= "wrapper slide" id="secretkey-slide">
+      <form>
+        <h3 align="center">Save your secret key</h3>
+        <textarea id="secretkey"></textarea>
+        <label>Make sure you save your key. Once you lose it, it will be gone forever.</label>
+        <a href="http://dropbox.com"><img src ="{{ url_for('static', filename='img/dropbox.png') }}" alternate="Dropbox Logo"></a>
+        <a href="http://drive.google.com"><img src ="{{ url_for('static', filename='img/googledrive.png') }}" alternate="Google Drive Logo"></a>
+        <a href="http://gmail.com"><img src ="{{ url_for('static', filename='img/gmail.png') }}" alternate="gmail Logo"></a>
+        <button type="button" id="continue">Submit</button>
+      </form>
+    </div>
+
+    
+    <!-- New note (SUBMIT) -->
+    <div class="wrapper slide" id="newNote-slide">
+    
+      <div class="wrapper">
+	<form> 
+	    <input type="text" class="form-control" id="title" placeholder="Title">
+      <textarea name="note" placeholder="Enter note here" rows="6"></textarea>
+        <div>
+          <form action="" method="post">
+            <button type="button" class="submit">Submit</button>
+          </br>
+            <button type="button" class="cancel">Cancel</button>
+          </form>
+        </div>
+      
+    </div>
+    
+    <!-- Update/edit an existing note -->
+    <div class="wrapper slide" id="texteditor-slide">
+      <div class="wrapper">
+	<form> 
+	    <input type="text" class="form-control" id="title" placeholder="Title">
+	   <textarea name="edit_note" id="note" placeholder="Edit note" rows="6"></textarea>
+      
+        <div>
+            <button type="button" class="update">Update</button>
+          </br>
+            <button type="button" class="cancel">Cancel</button>
+          </form>
+        </div>
+      </div>
+    
+    
+    <!-- NoteSafe main screen thing -->
+    <div class="showinline slide" id="explorer-slide">
+      <div class="row">
+        <div class="col-xs-4 col-sm-4">
+          <span class="glyphicon glyphicon-plus"></span>
+        </div>
+      
+        <div class="col-xs-4 col-sm-4">
+          <label>Note Safe</label>        
+        </div>
+      
+        <div class="col-xs-4 col-sm-4">
+          <span class="glyphicon glyphicon-log-out logout-btn"></span>
+        </div>
+      </div>
+      
+      <div class="panel panel-default">
+        <!-- Default panel contents -->
+        <div class="panel-heading">AW YISS MOTHA FUCKIN NOTES</div>
+      
+        <!-- List group -->
+        <ul class="list-group">
+          <!-- When adding a new item, add <li class="list-group-item"> -->
+        </ul>
+      </div>
+
+      <!--
+      <div class="footer">
+        <div class="container">
+          <p class="text-muted">FAQ</p>
+        </div>
+      </div>
+      -->
+    <div>
+      <footer>
+        FAQ
+      </footer>
+    </div>
+
+<!--
+    <div class="navbar navbar-default navbar-fixed-bottom" id="FAQ-slide" role="navigation">
+      <div class="container FAQ-btn">
+        <p class="text-muted">FAQ</p>
+      </div>
+    </div>
+
+    -->
+    
+    <!--
+    <div id="footerCenter" class="FAQ-btn">
+      <footer>
+        <p align="center">FAQ</p>
+      </footer>
+    </div>
+    -->
+    
+    
+        <!-- FAQ page -->
+    <div id="FAQ-slide" class="slide">
+      <a href="https://www.google.com"><h1>FAQ</h1></a>
+    </div>
+    
+    
+    <!-- UPDATED banner; toggle hidden to display -->
+    <div class="updatebanner slide" id="updated" hidden>
+      <p class="updatetext">Updated</p>
+    </div>
+
+    <!-- CANCELLED banner -->
+    <div class="cancelbanner slide" id="cancel" hidden>
+      <p class="canceltext">Cancelled</p>
+    </div>
+    	
+	<!-- Scripts -->
+    <script src="main.js"></script>
+  </body>
 </html>

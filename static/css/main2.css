@@ -1,0 +1,67 @@
+body {
+    padding-bottom: 70px;
+}
+
+@media (max-width: 768px) {
+  .btn-responsive {
+    padding:2px 4px;
+    width: 70px;
+  }
+}
+
+@media (min-width: 769px) and (max-width: 992px) {
+  .btn-responsive {
+    padding:4px 9px;
+    width: 70px;
+  }
+}
+
+.showinline {
+    display: inline block;
+}
+
+.updatebanner {
+    height: 100px;
+    width: 250px;
+    background: #dff0d8;
+    border: 1px solid #d6e9c6;
+
+    border-radius: 10px;
+    
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    margin-top: -50px;
+    margin-left: -125px;
+}
+
+.cancelbanner {
+    height: 100px;
+    width: 250px;
+    background: #fcf8e3;
+
+    border: 1px solid #f2dede;
+    border-radius: 10px;
+    
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    margin-top: -50px;
+    margin-left: -125px;
+}
+
+.updatetext {
+    color: #468847;
+    font-size: 35px;
+    text-align: center;
+    vertical-align: middle;
+    line-height: 90px;
+}
+
+.canceltext {
+    color: #b94a48;
+    font-size: 35px;
+    text-align: center;
+    vertical-align: middle;
+    line-height: 90px;
+}
