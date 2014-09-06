@@ -1,6 +1,10 @@
 import os
-from flask import Flask, request
+from flask import Flask, request, jsonify
 from flask import render_template
+
+import db
+from db import *
+import json
 
 app = Flask(__name__)
 
@@ -14,18 +18,16 @@ def root():
 @app.route('/api-login', methods=['POST'])
 def login():
 
+	_id=None
 	error=None
-	if not request.json or not 'username' in request.json or not 'password' in request.json:
+
+	if not 'username' in request.json or not 'password' in request.json:
 		error="Please enter both your username and password!"
-	
-	elif 1>0:
-		error="User does not exist!"
-	
-	elif 2>0:
-		error="Wrong password!"
-	
+	elif find_user_username(request.json['username']) == None:
+		error="This user does not exist!"
+	elif find_user_user(jn['username'])['password'] !=request.json['password']:
+		error="You entered the wrong password!"
 	else:
-		return {"_id":"id", "error":None}
+		_id=find_username(request.json['username'])
 	
-
-
+	return jsonify({"_id":str(_id), "error":error})
