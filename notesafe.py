@@ -19,15 +19,17 @@ def root():
 def login():
 
 	_id=None
-	error=None
-
-	if not 'username' in request.json or not 'password' in request.json:
-		error="Please enter both your username and password!"
-	elif find_user_username(request.json['username']) == None:
-		error="This user does not exist!"
-	elif find_user_user(jn['username'])['password'] !=request.json['password']:
-		error="You entered the wrong password!"
-	else:
-		_id=find_username(request.json['username'])
+	error=0 #No error
+	name=request.json['username']
+	pw=request.json['password']
+	find=find_user_name(name)
 	
-	return jsonify({"_id":str(_id), "error":error})
+	if len(name)<=0 or len(pw)<=0:
+		error=1 #Please enter your username and password.
+	elif find is None:
+		error=2 #This user does not exist.
+	elif find['password'] != pw:
+		error=3 #Wrong username or password.
+	else:
+		_id=str(find['_id'])
+	return jsonify({"_id":_id, "error":error})
