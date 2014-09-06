@@ -7,7 +7,12 @@ header{
 }
 
 h1{
-  font-family: 'Nixie One', cursive; 
+  font-family: 'Nixie One', cu
+}
+
+h3 {
+  font-family: 'Quicksand', sans-serif;
+  font-style: bold;
 }
 
 .wrapper{
@@ -24,7 +29,7 @@ h1{
 }
 
 body {
-  font-family: 'Nunito', sans-serif;
+  font-family: 'Quicksand', sans-serif;
   color: #384047;
 }
 
@@ -91,6 +96,7 @@ button {
   border-width: 1px 1px 3px;
   box-shadow: 0 -1px 0 rgba(255,255,255,0.1) inset;
   margin-bottom: 10px;
+  font-family: 'Quicksand', sans-serif;
 
 }
 
@@ -102,10 +108,13 @@ button:hover{
 footer {
   position:fixed;
   left: 0;
-  right: 0;
+  bottom: 0;
   height: 30px;
   width: 100%;
-  background: #999;
+  background: #e0e0e0;
+  text-align: right;
+  padding-top: 5px;
+  padding-right: 30px;
 }
 
 fieldset {
@@ -142,9 +151,19 @@ label.light {
   border-radius: 100%;
 }
 
+.panel {
+  margin: 0 auto;
+}
+
+span.glyphicon {
+  margin: auto 20px;
+  top:-7px;
+  display: inline-block;
+}
+
 @media screen and (min-width: 480px) {
 
-  form {
+  form, .panel {
     max-width: 480px;
   }
 
@@ -152,9 +171,10 @@ label.light {
 
 @media screen and (min-width: 660px) {
 
-  form {
+  form, .panel {
     max-width: 480;
   }
+
 
 }
 

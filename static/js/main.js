@@ -12,8 +12,8 @@ var userID = "";
 var currentID = "";
 var lastSlide = "";
 
-//$("div.slide").not(':first').hide();
-console.log("executing");
+$("div.slide").not(':first').hide();
+//console.log("executing");
 
 
 function tog(sel,remove,add) {
@@ -24,27 +24,17 @@ function setCurrentSlide(sel) {
 	$(sel).addClass(".current-slide");
 }
 function trans(target) {
-	//lastSlide = $(".current-slide").attr("id");
-	//tog(".current-slide", ".slide-show", ".slide-hide");
-	console.log("Doing a transition");
-	$(".current-slide").hide({
-		duration: 200,
-		complete: function () {
-			$(target).show(200);
+
+	//console.log("Doing a transition");
+	$(".current-slide").animate({opacity: 0},
+		500,
+		function () {
+			$(".current-slide").hide();
+			$(target).fadeIn(500);
 		}
-	});
-	//tog(target,".slide-hide", ".slide-show");
+	);
 	setCurrentSlide(target);
-	//$.tigger("transformed");
 }
-
-
-// $("* .back-btn").click(
-// 	function (e) {
-// 		slide(lastSlide);
-// 	}
-// );
-
 
 $("#welcome-slide .signIn-btn").click(
 	function (e) {

@@ -4,7 +4,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Note Safe</title>
-    <link href='http://fonts.googleapis.com/css?family=Nixie+One|Quicksand' rel='stylesheet' type='text/css'>
+     <link href='http://fonts.googleapis.com/css?family=Nixie+One|Quicksand' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" type=text/css href="{{ url_for('static', filename='bootstrap/cssbootstrap.min.css') }}">
     <link rel="stylesheet" type=text/css href="{{ url_for('static', filename='css/normalize.css') }}">
     <link rel="stylesheet" type=text/css href="{{ url_for('static', filename='css/foundation.css') }}">
@@ -63,10 +63,10 @@
         <h3 align="center">Save your secret key</h3>
         <textarea id="secretkey"></textarea>
         <label>Make sure you save your key. Once you lose it, it will be gone forever.</label>
-        <a href="http://dropbox.com"><img src ="{{ url_for('static', filename='img/dropbox.png') }}" alternate="Dropbox Logo"></a>
-        <a href="http://drive.google.com"><img src ="{{ url_for('static', filename='img/googledrive.png') }}" alternate="Google Drive Logo"></a>
-        <a href="http://gmail.com"><img src ="{{ url_for('static', filename='img/gmail.png') }}" alternate="gmail Logo"></a>
-        <button type="button" id="continue">Submit</button>
+        <a href="http://dropbox.com"><img src ="img/dropbox.png" alternate="Dropbox Logo"></a>
+        <a href="http://drive.google.com"><img src ="img/googledrive.png" alternate="Google Drive Logo"></a>
+        <a href="http://gmail.com"><img src ="img/gmail.png" alternate="gmail Logo"></a>
+        <button type="button" id="continue">Continue</button>
       </form>
     </div>
 
@@ -90,7 +90,6 @@
     
     <!-- Update/edit an existing note -->
     <div class="wrapper slide" id="texteditor-slide">
-      <div class="wrapper">
 	<form> 
 	    <input type="text" class="form-control" id="title" placeholder="Title">
 	   <textarea name="edit_note" id="note" placeholder="Edit note" rows="6"></textarea>
@@ -102,24 +101,36 @@
           </form>
         </div>
       </div>
+     </div>
     
     
     <!-- NoteSafe main screen thing -->
-    <div class="showinline slide" id="explorer-slide">
-      <div class="row">
-        <div class="col-xs-4 col-sm-4">
+    <div class="showinline slide wrapper" id="explorer-slide">
+      <div class="row" style="margin: 0 auto; display:inline-table">
+        <!-- <div class="col-xs-2 col-sm-2">
           <span class="glyphicon glyphicon-plus"></span>
         </div>
       
-        <div class="col-xs-4 col-sm-4">
-          <label>Note Safe</label>        
+        <div class="col-xs-8 col-sm-8">
+          <h1>Note Safe</h1>        
         </div>
       
-        <div class="col-xs-4 col-sm-4">
+        <div class="col-xs-2 col-sm-2">
           <span class="glyphicon glyphicon-log-out logout-btn"></span>
-        </div>
-      </div>
+        </div> -->
+
+        <div style="margin: 0 auto;width:332px;">
+
+	        <span class="glyphicon glyphicon-plus"></span>
+	        <h1 style="display:inline-block">Note Safe</h1>
+	        <span class="glyphicon glyphicon-log-out logout-btn"></span>
+
+    	</div>
+
+      </div> 
       
+
+
       <div class="panel panel-default">
         <!-- Default panel contents -->
         <div class="panel-heading">AW YISS MOTHA FUCKIN NOTES</div>
@@ -129,7 +140,7 @@
           <!-- When adding a new item, add <li class="list-group-item"> -->
         </ul>
       </div>
-
+  </div>
       <!--
       <div class="footer">
         <div class="container">
@@ -137,11 +148,9 @@
         </div>
       </div>
       -->
-    <div>
       <footer>
         FAQ
       </footer>
-    </div>
 
 <!--
     <div class="navbar navbar-default navbar-fixed-bottom" id="FAQ-slide" role="navigation">
@@ -178,6 +187,6 @@
     </div>
     	
 	<!-- Scripts -->
-    <script src="main.js"></script>
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
   </body>
 </html>
