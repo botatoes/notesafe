@@ -86,7 +86,9 @@ def ns_notes():
 		for n in nlist:
 			note=find_note_id(n)
 			if note != None:
-				pairlist.insert(-1,{"id":n, "title":e.getMessage(note['title'], seckey)  })
+				title=note['title']
+				#title=e.getMessage(title, seckey)
+				pairlist.insert(-1,{"id":n, "title":title })
 
 	return jsonify({"error":error, "list":pairlist})
 
@@ -100,7 +102,13 @@ def ns_read():
 	
 	datnote=find_note_id(noteid)
 
-	return jsonify({"title":e.getMessage(datnote['title'],seckey), "content":e.getMessage(datnote['content'],seckey)})
+	title=datnote['title']
+	content=datnote['content']
+
+	#title=e.getMessage(title, seckey)
+	#content=e.getMessage(content,seckey)
+
+	return jsonify({"title":title, "content":content})
 
 # The create new note call and edit note call
 # Requirs a POST request on the url /api-write. If a note id is not provided, a new note will be created
@@ -109,12 +117,17 @@ def ns_read():
 def ns_write():
 		# Create new shit
 		uid = request.json['_id']
-		pubkey = find_user_id(uid)['pubkey']
-		title = e.encryptMessage(request.json['title'], pubkey)
-		content = e.encryptMessage(request.json['content'], pubkey)
+		user = find_user_id(uid)
+
+		title=request.json['title']
+		content=request.json['content']
+		#pubkey=user['pubkey']
+		#title = e.encryptMessage(title, pubkey)
+		#content = e.encryptMessage(content, pubkey)
+		
 		nid=request.json['nid']
 		
-		if len(nid)>0:
+		if len(nid)<=0:
 			nid=str(add_note(uid, title, content))
 			return jsonify({"nid":nid})
 		else:
