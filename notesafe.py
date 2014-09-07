@@ -93,6 +93,6 @@ def ns_load():
 	noteid=str(request.json['_id'])
 	seckey=str(request.json['key'])
 	
-	find_note_id(noteid)
+	datnote=find_note_id(noteid)
 
-	return jsonify({"id":noteid, "key":seckey})
+	return jsonify({"title":datnote['title'], "content":datnote['content']})

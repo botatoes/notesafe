@@ -3,8 +3,7 @@ from pymongo import *
 
 client=MongoClient('notesafedb.cloudapp.net', 27017)
 
-db1=client.notesafe.USERS
-db2=client.encrypt.NOTES
+db=client.notesafe.data
 
 usernames=['admin', 'test1', 'test2', 'test3']
 passwords=['pw','test1','test2','test3']
@@ -18,7 +17,7 @@ for i in range(4):
 			"pubkey":publickeys[i],
 			"notes":notes[i]
 		}
-	db1.insert(newuser)
+	db.insert(newuser)
 
 titles=['title1', 'title2', 'title3']
 contents=['content in the stuffs1', 'content in the stuffs2', 'content in the stuffs3']
@@ -28,6 +27,6 @@ for i in range(3):
 			"title":titles[i],
 			"content":contents[i]
 			}
-	nid=db2.insert(newnote)
-	db1.find_one({"username":"admin"})['notes'].insert(-1, nid)
+	nid=db.insert(newnote)
+	db.find_one({"username":"admin"})['notes'].insert(-1, nid)
 

@@ -49,7 +49,7 @@ function loadNote(e, url) {
 		currentID = $(e.target).data("id");
 		var req = {
 			"key": skey,
-			"id": $(e.target).data("id")
+			"_id": $(e.target).data("id")
 		};
     req = JSON.stringify(req);
 		$.ajax({
@@ -62,9 +62,9 @@ function loadNote(e, url) {
       error: function (jqXHR, textStatus, errorThrown) {console.log(textStatus,errorThrown);},
 			success: function (result) {
 
-				$("#texteditor-slide #title").val(result.name);
+				$("#texteditor-slide #title").val(result.title);
 				$("#texteditor-slide #note").val(result.content);
-				trans(".texteditor-slide");
+				trans("#texteditor-slide");
 			}
 		});
 	}
@@ -272,7 +272,7 @@ $("#secretkeyinput-slide .submit-creds").click(
 				for(var i = 0; i < data.list.length; ++i) {
 					$("#explorer-slide ul.list-group").append('<li class="list-group-item" data-id="'+data.list[i].id+'">'+data.list[i].title+'<span class="deletefile">x</span></li>');
 				}
-        $("#explorer-slide ul.list-group li").click(function(e) {loadNote(e,"/api-load");});
+        $("#explorer-slide ul.list-group li").click(function(e) {loadNote(e,"/api-read");});
 				//slide control panel
 				trans("#explorer-slide");
 			}
@@ -303,7 +303,7 @@ $("#newNote-slide .submit").click(
       error: function (jqXHR, textStatus, errorThrown) {console.log(textStatus,errorThrown);},
 			success: function (result) {
 				$("#explorer-slide ul.list-group").append('<li class="list-group-item" data-id="'+result.id+'">'+req.title+'<button class="deletefile"></button></li>');
-				 $("#explorer-slide ul.list-group li").click(function(e) {loadNote(e,"/api-load");});
+				 $("#explorer-slide ul.list-group li").click(function(e) {loadNote(e,"/api-read");});
         trans("#explorer-slide");
 			}
 		});
