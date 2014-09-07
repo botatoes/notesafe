@@ -304,9 +304,9 @@ $("#newNote-slide .submit").click(
     req = JSON.stringify(req);
 		$.ajax({
      		 type: "POST",
-			url: "/api-write",
-			data: req,
-	        contentType: "application/json",
+			  url: "/api-write",
+			  data: req,
+	      contentType: "application/json",
 	      crossDomain: true,
 	      error: function (jqXHR, textStatus, errorThrown) {console.log(textStatus,errorThrown);},
 				success: function (result) {
@@ -346,7 +346,7 @@ $("#explorer-slide .list-group-item .deletefile").click(
 			"nid":  currentID
 		};
 		req = JSON.stringify(req);
-		$.ajax({			
+		$.ajax({
 			type: "POST",
 			url: "/api-delete",
 			data: req,

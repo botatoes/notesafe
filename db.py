@@ -11,6 +11,9 @@ def find_user_id(query):
 def find_user_name(query):
 	return data.find_one({'username':query})
 
+def find_note_oid(query):
+	return data.find_one({'id':query})
+
 def find_note_id(query):
 	return data.find_one({'_id':ObjectId(query)})
 
@@ -41,5 +44,5 @@ def remove_id_value(ide, field, oldvalue):
 def add_note(uid, title, content):
 	nid=data.insert({"title":title, "content":content})
 	append_id_value(uid, "notes", nid)
-	return nid
+	return str(nid)
 
