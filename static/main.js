@@ -273,6 +273,11 @@ $("#secretkeyinput-slide .submit-creds").click(
 					$("#explorer-slide ul.list-group").append('<li class="list-group-item" data-id="'+data.list[i].id+'">'+data.list[i].title+'<span class="deletefile">x</span></li>');
 				}
         $("#explorer-slide ul.list-group li").click(function(e) {loadNote(e,"/api-read");});
+        $("#explorer-slide .list-group-item").dblclick(
+			function (e) {
+				$(e.target).find(".deletefile").show();
+			}
+		);
 				//slide control panel
 				trans("#explorer-slide");
 			}
@@ -290,20 +295,28 @@ $("#newNote-slide .submit").click(
 	function (e) {
 		var req = {
 			"_id": userID,
-			"title": $("#newNote-slide #title").text(),
-			"content": $("#newNote-slide #note").text()
+			"title": $("#newNote-slide #title").val(),
+			"content": $("#newNote-slide #note").val(),
+			"nid":""
 		};
     req = JSON.stringify(req);
 		$.ajax({
-      type: "POST",
-			url: "ADD URL HERE",
+     		 type: "POST",
+			url: "/api-write",
 			data: req,
-      contentType: "application/json",
-      crossDomain: true,
-      error: function (jqXHR, textStatus, errorThrown) {console.log(textStatus,errorThrown);},
-			success: function (result) {
-				$("#explorer-slide ul.list-group").append('<li class="list-group-item" data-id="'+result.id+'">'+req.title+'<button class="deletefile"></button></li>');
+	        contentType: "application/json",
+	      crossDomain: true,
+	      error: function (jqXHR, textStatus, errorThrown) {console.log(textStatus,errorThrown);},
+				success: function (result) {
+				$("#explorer-slide ul.list-group").append('<li class="list-group-item" data-id="'+result.nid+'">'+req.title+'<button class="deletefile"></button></li>');
 				 $("#explorer-slide ul.list-group li").click(function(e) {loadNote(e,"/api-read");});
+				 $("#explorer-slide .list-group-item").dblclick(
+					function (e) {
+							$(e.target).find(".deletefile").show();
+						}
+					);
+				 $(/*ADD SELECTOR*/).show(500, function() {$(/*ADD SELECTOR*/).hide(500);});
+
         trans("#explorer-slide");
 			}
 		});
@@ -313,32 +326,36 @@ $("#newNote-slide .submit").click(
 $("#newNote-slide .cancel").click(
 	function (e) {
 		/*SHOW CANCEL MESSAGE*/
+		$(/*ADD SELECTOR*/).show(500, function() {$(/*ADD SELECTOR*/).hide(500);});
+
 		trans("#explorer-slide");
 		$("#newNote-slide input").val("");
 	}
 );
 
 
-$("#explorer-slide .list-group-item").dblclick(
-	function (e) {
-		$(e.target).find(".deletefile").show();
-	}
-);
+
 
 $("#explorer-slide .list-group-item .deletefile").click(
 	function (e) {
 		$(e.target).parent().remove();
 		var req = {
-			_id: userID,
-			id:  currentID
+			"_id": userID,
+			"nid":  currentID
 		};
-		$.ajax({
-			url: "TYPE URL HERE",
+		req = JSON.stringify(req);
+		$.ajax({			
 			type: "POST",
-			dataType: "json",
+			url: "/api-delete",
 			data: req,
+	        contentType: "application/json",
+	      	crossDomain: true,
+	      	error: function (jqXHR, textStatus, errorThrown) {console.log(textStatus,errorThrown);},
 			success: function (result) {
 				/*SHOW SUCCESS BANNER??*/
+				$(/*ADD SELECTOR*/).show(500, function() {$(/*ADD SELECTOR*/).hide(500);});
+
+				$("#explorer-slide li.list-group-item[data-id='"+currentID+"']").remove();
 			}
 		});
 	}
@@ -347,18 +364,23 @@ $("#explorer-slide .list-group-item .deletefile").click(
 $("#texteditor-slide .update").click(
 	function (e) {
 		var post = {
-			_id: userID,
-			id: currentID,
-			name: $("#texteditor-slide #title").val(),
-			content: $("#texteditor-slide #note").val()
+			"_id": userID,
+			"nid": currentID,
+			"title": $("#texteditor-slide #title").val(),
+			"content": $("#texteditor-slide #note").val()
 		}
+		post = JSON.stringify(post);
 		$.ajax({
-			url: "TYPE URL HERE",
 			type: "POST",
-			dataType: "json",
+			url: "/api-write",
 			data: post,
+	        contentType: "application/json",
+	      crossDomain: true,
+	      error: function (jqXHR, textStatus, errorThrown) {console.log(textStatus,errorThrown);},
 			success: function (result) {
 				/*SHOW SUCCESS BANNER*/
+				$(/*ADD SELECTOR*/).show(500, function() {$(/*ADD SELECTOR*/).hide(500);});
+
 				trans("#explorer-slide");
 			}
 		});
@@ -368,6 +390,8 @@ $("#texteditor-slide .update").click(
 $("#texteditor-slide .cancel").click(
 	function (e) {
 		/*SHOW FAILURE BANNER*/
+		$(/*ADD SELECTOR*/).show(500, function() {$(/*ADD SELECTOR*/).hide(500);});
+
 		trans("#explorer-slide");
 	}
 );
@@ -377,16 +401,8 @@ $("* .logout-btn").click(
 		skey = "";
 		currentID = "";
 		lastSlide = "";
-		user = {_id: userID};
-		$.ajax({
-			url: "TYPE URL HERE",
-			type: "POST",
-			data: user,
-			success: function (result) {
-				trans("#welcome-slide");
-			}
-		});
 		userID = "";
 		username = "";
+		trans("#welcome-slide");
 	}
 );
