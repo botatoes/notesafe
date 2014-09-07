@@ -6,7 +6,11 @@ import db
 from db import *
 import json
 
+import encryption
+from encryption import Encryptor
+
 app = Flask(__name__)
+e = Encryptor()
 
 @app.route('/')
 def ns_root():
@@ -57,9 +61,10 @@ def ns_create():
 	elif find is not None:
 		error=2 #Username is already taken
 	else:
-		newuser={"username":name, "password":pw, "pubkey":None, "notes":[]}
+		keys=e.keygen()
+		newuser={"username":name, "password":pw, "pubkey":str(keys[0]), "notes":[]}
 		_id=add_user(newuser)
-	return jsonify({"_id":_id, "key":"stub" , "error":error})
+	return jsonify({"_id":_id, "key":str(keys[1]) , "error":error})
 
 # The list call
 # Requires a POST request on the url /api-note
@@ -81,18 +86,51 @@ def ns_notes():
 		for n in nlist:
 			note=find_note_id(n)
 			if note != None:
-				pairlist.insert(-1,{"id":n, "title":note['title']})
+				pairlist.insert(-1,{"id":n, "title":e.getMessage(note['title'], seckey)  })
 
 	return jsonify({"error":error, "list":pairlist})
 
 # The note call
-# Requires a POST request on the url /api-load
+# Requires a POST request on the url /api-read
 
 @app.route('/api-read', methods=['POST'])
-def ns_load():
+def ns_read():
 	noteid=str(request.json['_id'])
 	seckey=str(request.json['key'])
 	
 	datnote=find_note_id(noteid)
 
-	return jsonify({"title":datnote['title'], "content":datnote['content']})
+	return jsonify({"title":e.getMessage(datnote['title'],seckey), "content":e.getMessage(datnote['content'],seckey)})
+
+# The create new note call and edit note call
+# Requirs a POST request on the url /api-write. If a note id is not provided, a new note will be created
+
+@app.route('/api-write', methods=['POST'])
+def ns_write():
+		# Create new shit
+		uid = request.json['_id']
+		pubkey = find_user_id(uid)['pubkey']
+		title = e.encryptMessage(request.json['title'], pubkey)
+		content = e.encryptMessage(request.json['content'], pubkey)
+		nid=request.json['nid']
+		
+		if len(nid)>0:
+			nid=str(add_note(uid, title, content))
+			return jsonify({"nid":nid})
+		else:
+			modify_id_value(nid, "title", title)
+			modify_id_value(nid, "content", content)
+			return jsonify({"nid":nid})
+
+@app.route('/api-delete', methods=['POST'])
+def ns_delete():
+	ide = request.json['_id']
+	nid = request.json['nid']
+	find = find_note_id(nid)
+	error = 0
+	if find==None:
+		error=1
+	else:
+		remove_id_value(ide, "notes", nid)
+		delete_id(nid)
+	return jsonify({"error":error})
