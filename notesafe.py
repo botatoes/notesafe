@@ -9,14 +9,14 @@ import json
 app = Flask(__name__)
 
 @app.route('/')
-def root():
+def ns_root():
 	return render_template('index.html')
 
-# The login API
+# The login call
 # Requires a POST request on the url /api-login
 
 @app.route('/api-login', methods=['POST'])
-def login():
+def ns_login():
 
 	_id=None
 	error=0 #No error
@@ -25,11 +25,59 @@ def login():
 	find=find_user_name(name)
 	
 	if len(name)<=0 or len(pw)<=0:
-		error=1 #Please enter your username and password.
-	elif find is None:
-		error=2 #This user does not exist.
+		error=1
+	
+	elif find == None:
+		error=2
+	
 	elif find['password'] != pw:
-		error=3 #Wrong username or password.
+		error=3 
 	else:
 		_id=str(find['_id'])
+	
 	return jsonify({"_id":_id, "error":error})
+
+# The create call
+# Requires a POST request on the url /api-create
+
+@app.route('/api-create', methods=['POST'])
+def ns_create():
+
+	_id=None
+	error=0 #No error
+	name=request.json['username']
+	pw=request.json['password']
+	find=find_user_name(name)
+
+	if len(name)<=0 or len(pw)<=0:
+		error=1 #You must enter a username or pw
+	elif find is not None:
+		error=2 #Username is already taken
+	else:
+		newuser={"username":name, "password":pw, "pubkey":None, "notes":[]}
+		_id=add_user(newuser)
+	return jsonify({"_id":_id, "error":error})
+
+# The list call 
+# Requires a POST request on the url /api-list
+
+@app.route('/api-notes', methods=['POST'])
+def ns_notes():
+	_id=request.json['_id']
+	seckey=request.json['seckey']
+	error=0
+	user=find_user_id(_id)
+	pairlist=[]
+
+	if user == None:
+		error=1
+	elif len(seckey)<=0:
+		error=2
+	else:
+		nlist=user['notes']
+		for n in nlist:
+			note=find_note_id(n)
+			if note != None:
+				pairlist.insert(-1,{"id":n, "title":note['title']})
+
+	return jsonify({"error":error, "list":pairlist})

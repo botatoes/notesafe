@@ -13,6 +13,7 @@ var currentID = "";
 var lastSlide = "";
 
 $("div.slide").not(':first').hide();
+//$("div.slide").not("#newNote-slide").hide();
 //console.log("executing");
 
 
@@ -20,26 +21,35 @@ function tog(sel,remove,add) {
 	$(sel).removeClass(remove).addClass(add);
 }
 function setCurrentSlide(sel) {
-	$("div.slide").removeClass(".current-slide");
-	$(sel).addClass(".current-slide");
+	$(".current-slide").removeClass("current-slide").hide();
+	$(sel).addClass("current-slide");
 }
 function trans(target) {
 
 	//console.log("Doing a transition");
 	$(".current-slide").animate({opacity: 0},
-		500,
+		200,
 		function () {
-			$(".current-slide").hide();
-			$(target).fadeIn(500);
+			console.log("fading in" + target);
+			$(target).css("opacity",100).fadeIn(100);
+			$(".current-slide").not(target).removeClass("current-slide").hide();
+			$(target).addClass("current-slide");
 		}
 	);
-	setCurrentSlide(target);
+	//setCurrentSlide(target);
 }
 
 $("#welcome-slide .signIn-btn").click(
 	function (e) {
 		//Slide the control panel
 		trans("#login-slide");
+		$("div#title .back-btn").show(400);
+		$(".back-btn").click(
+			function (e) {
+				$(e.target).hide(400);
+				trans("#welcome-slide");
+			}
+		);
 	}
 );
 
@@ -49,19 +59,28 @@ $("#welcome-slide .create-btn").click(
 	function (e) {
 		//Slide the control panel
 		trans("#create-slide");
+		$("div#title .back-btn").show(400);
+		$(".back-btn").click(
+			function (e) {
+				$(e.target).hide(400);
+				trans("#welcome-slide");
+			}
+		);
 	}
 );
 
-$(" * .FAQ-btn").click(
+$(".FAQ-btn").click(
 	function (e) {
 		lastSlide = $(".current-slide").attr("id");
 		trans("#FAQ-slide");
-	}
-);
-
-$("#FAQ-slide .back-btn").click(
-	function (e) {
-		trans(lastSlide);
+		console.log(lastSlide);
+		$("div#title .back-btn").show(400);
+		$(".back-btn").click(
+			function (e) {
+				$(e.target).hide(400);
+				trans("#"+lastSlide);
+			}
+		);
 	}
 );
 
@@ -74,33 +93,53 @@ $("#login-slide .submit-creds").click(
 			password: $("#login-slide #password").val()
 		};
 
+		$("div#title .back-btn").show(400);
+		$(".back-btn").click(
+			function (e) {
+				$(e.target).hide(400);
+				trans("#login-slide");
+			}
+		);
+
 		$.ajax({
-			url: "TYPE URL HERE",
+			url: "/api-login",
 			type: "POST",
 			dataType: "json",
 			data: user,
 			success: function (result) {
 				result = parseJSON(result);
 				//On success, move to next page/note editor
-				if(result.success) {
+
+				switch(result.error) {
+					case 0: userID = result._id;
+							trans("#secretkeyinput-slide");
+							break;
+					case 1: $("#login-slide #name").attr("placeholder","PLEASE ENTER A USERNAME").css("color","red").val("");
+							$("#login-slide #password").attr("placeholder","PLEASE ENTER A PASSWORD").css("color","red").val("");
+							break;// no username or pw
+					case 2: $("#login-slide #name").attr("placeholder","USERNAME DOES NOT EXIST").css("color","red").val("");
+							$("#login-slide #password").val("");
+							break;// user dne
+					case 3: $("#login-slide #name").val("");
+							$("#login-slide #password").attr("placeholder","INCORRECT PASSWORD").css("color","red").val("");
+							break;//wrong user/ pw
+					default: $("#login-slide #name").val("");$("#login-slide #password").val("");
+				};
+
+				/*if(result.success) {
 					userID = result._id;
 					trans("#secretkeyinput-slide");					
 				} else {
-					/*TELL THEM THAT THEIR SHIT DONT WORK*/
+					/*TELL THEM THAT THEIR SHIT DONT WORK
 					$("#login-slide #name").attr("placeholder","INCORRECT USERNAME").css("color","red");
 					$("#login-slide #password").attr("placeholder","INCORRECT PASSWORD").css("color","red");
-				}
+				}*/
 				//slide control panel
 			}
 		});
 	}
 );
 
-$("#login-slide .back-btn").click(
-	function (e) {
-		trans("#welcome-slide");
-	}
-);
 
 $("#create-slide .submit-creds").click(
 	function (e) {
@@ -110,6 +149,14 @@ $("#create-slide .submit-creds").click(
 			password: $("#create-slide #name").val()
 		};
 
+		$("div#title .back-btn").show(400);
+		$(".back-btn").click(
+			function (e) {
+				$(e.target).hide(400);
+				trans("#create-slide");
+			}
+		);
+
 		$.ajax({
 			url: "TYPE URL HERE",
 			type: "POST",
@@ -118,7 +165,24 @@ $("#create-slide .submit-creds").click(
 			success: function (result) {
 				result = parseJSON(result);
 				//On success, move to next page/note editor
-				if(result.success) {
+				switch(result.error) {
+					case 0: skey = result.key;
+							userID = result._id;
+							$("#secretkey-slide #secretkey").text(skey);
+							trans("#secretkey-slide");
+							break;
+					case 1: $("#login-slide #name").attr("placeholder","PLEASE ENTER A USERNAME").css("color","red").val("");
+							$("#login-slide #password").attr("placeholder","PLEASE ENTER A PASSWORD").css("color","red").val("");
+							break;// no username or pw
+					case 2: $("#login-slide #name").attr("placeholder","USERNAME DOES NOT EXIST").css("color","red").val("");
+							$("#login-slide #password").val("");
+							break;// user dne
+					case 3: $("#login-slide #name").val("");
+							$("#login-slide #password").attr("placeholder","INCORRECT PASSWORD").css("color","red").val("");
+							break;//wrong user/ pw
+					default: 
+				};
+				/*if(result.success) {
 					skey = result.key;
 					userID = result._id;
 					$("#secretkey-slide #secretkey").text(skey);
@@ -127,15 +191,9 @@ $("#create-slide .submit-creds").click(
 				} else {
 					$("#create-slide #name").attr("placeholder","INVALID USERNAME").css("color","red");
 					$("#create-slide #password").attr("placeholder","INVALID PASSWORD").css("color","red");
-				}
+				}*/
 			}
 		});
-	}
-);
-
-$("#create-slide .back-btn").click(
-	function (e) {
-		trans("#welcome-slide");
 	}
 );
 
@@ -145,10 +203,18 @@ $("#secretkey-slide #continue").click(
 	}
 );
 
-$("#enter_secret .submit-creds").click(
+$("#secretkeyinput-slide .submit-creds").click(
 	function (e) {
 		skey = $("#secretkeyinput").val();
 		var key = {key: skey};
+
+		$("div#title .back-btn").show(400);
+		$(".back-btn").click(
+			function (e) {
+				$(e.target).hide(400);
+				trans("#secretkeyinput-slide");
+			}
+		);
 
 		$.ajax({
 			url: "TYPE URL HERE",

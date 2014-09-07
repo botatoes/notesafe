@@ -4,11 +4,11 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Note Safe</title>
-     <link href='http://fonts.googleapis.com/css?family=Nixie+One|Quicksand' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" type=text/css href="{{ url_for('static', filename='bootstrap/cssbootstrap.min.css') }}">
-    <link rel="stylesheet" type=text/css href="{{ url_for('static', filename='css/normalize.css') }}">
-    <link rel="stylesheet" type=text/css href="{{ url_for('static', filename='css/foundation.css') }}">
-    <link rel="stylesheet" type=text/css href="{{ url_for('static', filename='css/main.css') }}">
+    <link href='http://fonts.googleapis.com/css?family=Nixie+One|Quicksand:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap/css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/normalize.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/foundation.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
     <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 
     </script>
@@ -16,9 +16,13 @@
   </head>
   <body>
 
-    <div id ="title slide">
+    <div id ="title">
       <header>
-        <h1 align="center">Note Safe</h1>
+        <div class="row">
+<!--          <span class='back-btn glyphicon glyphicon-arrow-left ' style="display:none;font-size:12px"></span> -->
+          <h1 class="" align="center" style="display:block"> Note Safe</h1>
+          <div class="back-btn" style="">&lt; Back</div>
+        </div>
       </header>
     </div>
  
@@ -49,10 +53,10 @@
     </div>
     
 
-    <div class= "wrapper slide" id="enter_secret">
+    <div class= "wrapper slide" id="secretkeyinput-slide">
       <form>
         <h3 align="center">Enter your secret key</h3>
-        <textarea id="secretkeyinput" placeholder="Copy and paste your secret key here"></textarea>
+        <textarea style="resize:none" id="secretkeyinput" placeholder="Copy and paste your secret key here"></textarea>
         <button type="button" class="submit-creds">Submit</button>
       </form>
     </div>
@@ -61,11 +65,13 @@
     <div class= "wrapper slide" id="secretkey-slide">
       <form>
         <h3 align="center">Save your secret key</h3>
-        <textarea id="secretkey"></textarea>
-        <label>Make sure you save your key. Once you lose it, it will be gone forever.</label>
-        <a href="http://dropbox.com"><img src ="img/dropbox.png" alternate="Dropbox Logo"></a>
-        <a href="http://drive.google.com"><img src ="img/googledrive.png" alternate="Google Drive Logo"></a>
-        <a href="http://gmail.com"><img src ="img/gmail.png" alternate="gmail Logo"></a>
+        <textarea style="resize:none" id="secretkey"></textarea>
+        <label>Make sure you save your key. To ensure maximum security, once the secret key is lost, it will be gone forever. Below are some services where you can store you secret key.</label>
+          <a href="http://dropbox.com"><img src ="img/dropbox.png" alternate="Dropbox Logo" class="logos"></a>
+          <a href="http://drive.google.com"><img src ="img/googledrive.png" alternate="Google Drive Logo" class="logos"></a>
+          <a href="http://gmail.com"><img src ="img/gmail.png" alternate="gmail Logo" class="logos"></a>
+          <a href="http://icloud.com"><img src ="img/icloud.png" alternate="iCoud Logo" class="logos"></a>
+        <p></p>
         <button type="button" id="continue">Continue</button>
       </form>
     </div>
@@ -73,35 +79,30 @@
     
     <!-- New note (SUBMIT) -->
     <div class="wrapper slide" id="newNote-slide">
-    
-      <div class="wrapper">
-	<form> 
-	    <input type="text" class="form-control" id="title" placeholder="Title">
-      <textarea name="note" placeholder="Enter note here" rows="6"></textarea>
-        <div>
-          <form action="" method="post">
+      <form> 
+        <input type="text" class="form-control" id="title" placeholder="Title">
+        <textarea style="resize:none" name="note" placeholder="Enter note here" rows="6"></textarea>
+          
+
             <button type="button" class="submit">Submit</button>
           </br>
             <button type="button" class="cancel">Cancel</button>
-          </form>
-        </div>
-      
+      </form>     
     </div>
     
     <!-- Update/edit an existing note -->
     <div class="wrapper slide" id="texteditor-slide">
-	<form> 
-	    <input type="text" class="form-control" id="title" placeholder="Title">
-	   <textarea name="edit_note" id="note" placeholder="Edit note" rows="6"></textarea>
-      
+      <form> 
+        <input type="text" class="form-control" id="title" placeholder="Title">
+        <textarea style="resize:none" name="edit_note" id="note" placeholder="Edit note" rows="6"></textarea>
         <div>
-            <button type="button" class="update">Update</button>
+          <button type="button" class="update">Update</button>
           </br>
-            <button type="button" class="cancel">Cancel</button>
-          </form>
+          <button type="button" class="cancel">Cancel</button>
         </div>
-      </div>
-     </div>
+      </form>
+    </div>
+
     
     
     <!-- NoteSafe main screen thing -->
@@ -121,11 +122,11 @@
 
         <div style="margin: 0 auto;width:332px;">
 
-	        <span class="glyphicon glyphicon-plus"></span>
-	        <h1 style="display:inline-block">Note Safe</h1>
-	        <span class="glyphicon glyphicon-log-out logout-btn"></span>
+          <span class="glyphicon glyphicon-plus"></span>
+          <h1 style="display:inline-block">Note Safe</h1>
+          <span class="glyphicon glyphicon-log-out logout-btn"></span>
 
-    	</div>
+      </div>
 
       </div> 
       
@@ -148,8 +149,7 @@
         </div>
       </div>
       -->
-      <footer>
-        FAQ
+      <footer><span class="FAQ-btn">FAQ</span>
       </footer>
 
 <!--
@@ -171,22 +171,25 @@
     
     
         <!-- FAQ page -->
-    <div id="FAQ-slide" class="slide">
-      <a href="https://www.google.com"><h1>FAQ</h1></a>
+    <div id="FAQ-slide" class="slide row">
+      <div class=" col-xs-3 col-sm-3"></div>
+      <div class=" col-xs-6 col-sm-6">
+        <a href="https://www.google.com"><h1>FAQ</h1></a>
+      </div>
     </div>
     
     
     <!-- UPDATED banner; toggle hidden to display -->
-    <div class="updatebanner slide" id="updated" hidden>
+    <div class="updatebanner" id="updated" style="display:none">
       <p class="updatetext">Updated</p>
     </div>
 
     <!-- CANCELLED banner -->
-    <div class="cancelbanner slide" id="cancel" hidden>
+    <div class="cancelbanner" id="cancel" style="display:none">
       <p class="canceltext">Cancelled</p>
     </div>
-    	
-	<!-- Scripts -->
-    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+      
+  <!-- Scripts -->
+    <script src="{{ url_for('static', filename='main.js') }}"></script>
   </body>
 </html>

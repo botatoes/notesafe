@@ -1,0 +1,28 @@
+Home page
+	has a link to create account
+	has a link to login
+	has a link to FAQ
+
+Create Account Pages
+	allow user to enter id and specify password 
+		check if id exist if not create success
+		if id exist show an error
+	server generates public and secret key pair
+	user download secret key by copy pasting the secret key
+		advice for secret key storage 
+	server stores public key
+
+Login Pages
+	user enter id + password
+	user enter secret key in secret key page
+	navigated to notes page
+
+Notes List Page
+	list the notes
+	create note and navigate to note 
+
+Specific Note
+	allow user to edit note in text boxes
+	allow user to submit note
+	shows encrypted/jumble/wrong version if wrong/no secret key uploaded 
+	allow user to delete note

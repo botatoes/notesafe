@@ -9,15 +9,13 @@ users = db.Users
 notes = db.Notes
 
 def find_user_id(query):
-	cursor=users.find({'_id':ObjectId(query)})
-	if cursor.count()>0:
-		return cursor[0]
-	else:
-		return None
+	return users.find_one({'_id':ObjectId(query)})
 
 def find_user_name(query):
-	cursor=users.find({'username':query})
-	if cursor.count()>0:
-		return cursor[0]
-	else:
-		return None
+	return users.find_one({'username':query})
+
+def find_note_id(query):
+	return notes.find_one({'_id':ObjectId(query)})
+
+def add_user(newuser):
+	return str(users.insert(newuser))

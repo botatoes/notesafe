@@ -72,6 +72,13 @@ select {
   margin-bottom: 15px;
 }
 
+.logos {
+  padding: 0 2% 0 2%;
+  margin-bottom: 10px; 
+
+  width: 60px;
+}
+
 input[type="radio"],
 input[type="checkbox"] {
   margin: 0 4px 8px 0;
@@ -161,10 +168,31 @@ span.glyphicon {
   display: inline-block;
 }
 
+/*#title .glyphicon {
+  margin: 20px -20px auto 20px;
+}
+*/
+div.back-btn{
+  display:block;
+  text-align:left;
+  display:none;
+  cursor:pointer;
+  margin-left:20px;
+}
+
 @media screen and (min-width: 480px) {
 
   form, .panel {
     max-width: 480px;
+  }
+
+  .logos {
+  padding: 0 5% 0 5%;
+  width: 100px;
+}
+
+  div.back-btn {
+    margin-left: 14%;
   }
 
 }
@@ -174,7 +202,9 @@ span.glyphicon {
   form, .panel {
     max-width: 480;
   }
-
+div.back-btn {
+    margin-left: 23%;
+  }
 
 }
 
@@ -249,4 +279,15 @@ body {
 .deletefile {
     float: right;
     margin: auto;
+}
+
+.FAQ-btn {
+  cursor: pointer;
+}
+
+#FAQ-slide .back-btn {
+/*  position: absolute;
+  left: 565px;
+  top: 205px;*/
+  position: relative;
 }
