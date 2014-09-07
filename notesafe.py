@@ -14,6 +14,9 @@ def ns_root():
 
 # The login call
 # Requires a POST request on the url /api-login
+@app.route('/test')
+def ns_test():
+	return jsonify(request.json)
 
 @app.route('/api-login', methods=['POST'])
 def ns_login():

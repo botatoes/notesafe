@@ -92,7 +92,7 @@ $("#login-slide .submit-creds").click(
 			"username": username,
 			"password": $("#login-slide #password").val()
 		};
-
+    console.log(JSON.stringify(user));
 		$("div#title .back-btn").show(400);
 		$(".back-btn").click(
 			function (e) {
@@ -102,11 +102,11 @@ $("#login-slide .submit-creds").click(
 		);
 
 		$.ajax({
-			url: "http://notesafe.herokuapp.com/api-login",
+			url: "http://notesafe.herokuapp.com/test",
 			type: "POST",
 			dataType: "json",
       contentType: "application/json",
-			data: user,
+			data: JSON.stringify(user),
 			success: function (result) {
 				result = parseJSON(result);
 				//On success, move to next page/note editor

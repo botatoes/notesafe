@@ -10,9 +10,6 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/foundation.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
     <script src="http://code.jquery.com/jquery-latest.min.js"></script>
-
-    </script>
-    <script src="js/vendor/modernizr.js"></script>
   </head>
   <body>
 
@@ -67,10 +64,10 @@
         <h3 align="center">Save your secret key</h3>
         <textarea style="resize:none" id="secretkey"></textarea>
         <label>Make sure you save your key. To ensure maximum security, once the secret key is lost, it will be gone forever. Below are some services where you can store you secret key.</label>
-          <a href="http://dropbox.com"><img src ="img/dropbox.png" alternate="Dropbox Logo" class="logos"></a>
-          <a href="http://drive.google.com"><img src ="img/googledrive.png" alternate="Google Drive Logo" class="logos"></a>
-          <a href="http://gmail.com"><img src ="img/gmail.png" alternate="gmail Logo" class="logos"></a>
-          <a href="http://icloud.com"><img src ="img/icloud.png" alternate="iCoud Logo" class="logos"></a>
+          <a href="http://dropbox.com"><img src ="{{ url_for('static', filename='img/dropbox.png') }}" alternate="Dropbox Logo" class="logos"></a>
+          <a href="http://drive.google.com"><img src ="{{ url_for('static', filename='img/googledrive.png') }}" alternate="Google Drive Logo" class="logos"></a>
+          <a href="http://gmail.com"><img src ="{{ url_for('static', filename='img/gmail.png') }}" alternate="gmail Logo" class="logos"></a>
+          <a href="http://icloud.com"><img src ="{{ url_for('static', filename='img/icloud.png') }}" alternate="iCoud Logo" class="logos"></a>
         <p></p>
         <button type="button" id="continue">Continue</button>
       </form>
