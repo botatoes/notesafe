@@ -10,6 +10,13 @@ h1{
   font-family: 'Nixie One', cu
 }
 
+h2 {
+  text-align: center;
+  font-family: 'Quicksand', sans-serif;
+  color: #e2e2e2; 
+}
+
+
 h3 {
   font-family: 'Quicksand', sans-serif;
   font-style: bold;

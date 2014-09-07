@@ -119,8 +119,7 @@
 
         <div style="margin: 0 auto;width:332px;">
 
-          <span class="glyphicon glyphicon-plus"></span>
-          <h1 style="display:inline-block">Note Safe</h1>
+          <span class="glyphicon glyphicon-plus add-btn"></span>
           <span class="glyphicon glyphicon-log-out logout-btn"></span>
 
       </div>
@@ -203,15 +202,15 @@
     
     
     <!-- UPDATED banner; toggle hidden to display -->
-    <div class="updatebanner" id="updated" style="display:none">
-      <p class="updatetext">Updated</p>
-    </div>
-
-    <!-- CANCELLED banner -->
-    <div class="cancelbanner" id="cancel" style="display:none">
-      <p class="canceltext">Cancelled</p>
-    </div>
-      
+ <div id="cancelbanner" style= "background-color:#e48282;">
+  <h2>Cancelled</h2>
+</div>
+ <div id="updatebanner" style= "background-color:#41c066;">
+  <h2>Updated</h2>
+</div>
+ <div  id="submitbanner"style= "background-color:#41c066;">
+  <h2>Submitted</h2>
+</div>
   <!-- Scripts -->
     <script src="{{ url_for('static', filename='main.js') }}"></script>
   </body>

@@ -315,7 +315,7 @@ $("#newNote-slide .submit").click(
 							$(e.target).find(".deletefile").show();
 						}
 					);
-				 $(/*ADD SELECTOR*/).show(500, function() {$(/*ADD SELECTOR*/).hide(500);});
+				 $("#submitbanner").show(500, function() {$("#submitbanner").hide(500);});
 
         trans("#explorer-slide");
 			}
@@ -326,7 +326,7 @@ $("#newNote-slide .submit").click(
 $("#newNote-slide .cancel").click(
 	function (e) {
 		/*SHOW CANCEL MESSAGE*/
-		$(/*ADD SELECTOR*/).show(500, function() {$(/*ADD SELECTOR*/).hide(500);});
+		$("#cancelbanner").show(500, function() {$("#cancelbanner").hide(500);});
 
 		trans("#explorer-slide");
 		$("#newNote-slide input").val("");
@@ -353,7 +353,7 @@ $("#explorer-slide .list-group-item .deletefile").click(
 	      	error: function (jqXHR, textStatus, errorThrown) {console.log(textStatus,errorThrown);},
 			success: function (result) {
 				/*SHOW SUCCESS BANNER??*/
-				$(/*ADD SELECTOR*/).show(500, function() {$(/*ADD SELECTOR*/).hide(500);});
+				//$(/*ADD SELECTOR*/).show(500, function() {$(/*ADD SELECTOR*/).hide(500);});
 
 				$("#explorer-slide li.list-group-item[data-id='"+currentID+"']").remove();
 			}
@@ -379,7 +379,7 @@ $("#texteditor-slide .update").click(
 	      error: function (jqXHR, textStatus, errorThrown) {console.log(textStatus,errorThrown);},
 			success: function (result) {
 				/*SHOW SUCCESS BANNER*/
-				$(/*ADD SELECTOR*/).show(500, function() {$(/*ADD SELECTOR*/).hide(500);});
+				$("#updatebanner").show(500, function() {$("#updatebanner").hide(500);});
 
 				trans("#explorer-slide");
 			}
@@ -390,7 +390,7 @@ $("#texteditor-slide .update").click(
 $("#texteditor-slide .cancel").click(
 	function (e) {
 		/*SHOW FAILURE BANNER*/
-		$(/*ADD SELECTOR*/).show(500, function() {$(/*ADD SELECTOR*/).hide(500);});
+		$("#cancelbanner").show(500, function() {$("#cancelbanner").hide(500);});
 
 		trans("#explorer-slide");
 	}
