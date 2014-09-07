@@ -101,10 +101,10 @@ $("#login-slide .submit-creds").click(
 		);
 
 		$.ajax({
-			url: "http://notesafe.herokuapp.com/test",
+			url: "http://notesafe.herokuapp.com/api-login",
 			type: "POST",
 			dataType: "json",
-     			 contentType: "application/json",
+     			contentType: "application/json",
 			data: JSON.stringify(user),
 			success: function (result) {
 				result = parseJSON(result);
