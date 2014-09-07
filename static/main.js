@@ -1,7 +1,7 @@
 /*
 	Main js file
 
-	AES 
+	AES
 */
 
 //$(".panel").top($("body").height()); DONT NEED THIS
@@ -55,7 +55,7 @@ $("#welcome-slide .signIn-btn").click(
 
 
 
-$("#welcome-slide .create-btn").click( 
+$("#welcome-slide .create-btn").click(
 	function (e) {
 		//Slide the control panel
 		trans("#create-slide");
@@ -102,7 +102,7 @@ $("#login-slide .submit-creds").click(
 		);
 
 		$.ajax({
-			url: "/api-login",
+			url: "http://notesafe.herokuapp.com/api-login",
 			type: "POST",
 			dataType: "json",
 			data: user,
@@ -128,7 +128,7 @@ $("#login-slide .submit-creds").click(
 
 				/*if(result.success) {
 					userID = result._id;
-					trans("#secretkeyinput-slide");					
+					trans("#secretkeyinput-slide");
 				} else {
 					/*TELL THEM THAT THEIR SHIT DONT WORK
 					$("#login-slide #name").attr("placeholder","INCORRECT USERNAME").css("color","red");
@@ -180,7 +180,7 @@ $("#create-slide .submit-creds").click(
 					case 3: $("#login-slide #name").val("");
 							$("#login-slide #password").attr("placeholder","INCORRECT PASSWORD").css("color","red").val("");
 							break;//wrong user/ pw
-					default: 
+					default:
 				};
 				/*if(result.success) {
 					skey = result.key;
