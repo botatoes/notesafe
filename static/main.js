@@ -270,7 +270,7 @@ $("#secretkeyinput-slide .submit-creds").click(
 				var data = result;
 				$("#explorer-slide li.list-group-item").remove();
 				for(var i = 0; i < data.list.length; ++i) {
-					$("#explorer-slide ul.list-group").append('<li class="list-group-item" data-id="'+data.list[i].id+'">'+data.list[i].title+'<span class="deletefile">x</span></li>');
+					$("#explorer-slide ul.list-group").append('<li class="list-group-item" data-id="'+data.list[i].id+'">'+data.list[i].title+'<span style="display:none" class="deletefile">x</span></li>');
 				}
         $("#explorer-slide ul.list-group li").click(function(e) {loadNote(e,"/api-read");});
         $("#explorer-slide .list-group-item").dblclick(
@@ -308,7 +308,7 @@ $("#newNote-slide .submit").click(
 	      crossDomain: true,
 	      error: function (jqXHR, textStatus, errorThrown) {console.log(textStatus,errorThrown);},
 				success: function (result) {
-				$("#explorer-slide ul.list-group").append('<li class="list-group-item" data-id="'+result.nid+'">'+req.title+'<button class="deletefile"></button></li>');
+				$("#explorer-slide ul.list-group").append('<li class="list-group-item" data-id="'+result.nid+'">'+req.title+'<span style="display:none" class="deletefile">x</span></li>');
 				 $("#explorer-slide ul.list-group li").click(function(e) {loadNote(e,"/api-read");});
 				 $("#explorer-slide .list-group-item").dblclick(
 					function (e) {
