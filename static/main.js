@@ -23,10 +23,12 @@ $("div.slide").not(':first').hide();
 function tog(sel,remove,add) {
 	$(sel).removeClass(remove).addClass(add);
 }
+
 function setCurrentSlide(sel) {
 	$(".current-slide").removeClass("current-slide").hide();
 	$(sel).addClass("current-slide");
 }
+
 function trans(target) {
 
 	//console.log("Doing a transition");
@@ -41,6 +43,31 @@ function trans(target) {
 	);
 	//setCurrentSlide(target);
 }
+
+function loadNote(e, url) {
+		$(".list-group-item").hide(".deletefile");
+		currentID = $(e.target).data("id");
+		var req = {
+			"key": skey,
+			"id": $(e.target).data("id")
+		};
+    req = JSON.stringify(req);
+		$.ajax({
+      type: "POST",
+			url: url,
+			data: req,
+      contentType: "application/json",
+      //dataType: "jsonp",
+      crossDomain: true,
+      error: function (jqXHR, textStatus, errorThrown) {console.log(textStatus,errorThrown);},
+			success: function (result) {
+
+				$("#texteditor-slide #title").val(result.name);
+				$("#texteditor-slide #note").val(result.content);
+				trans(".texteditor-slide");
+			}
+		});
+	}
 
 $("#welcome-slide .signIn-btn").click(
 	function (e) {
@@ -153,10 +180,8 @@ $("#create-slide .submit-creds").click(
 			"username": username,
 			"password": $("#create-slide #password").val()
 		};
-    g=JSON.stringify(user);
-    user=g;
-
-		$("div#title .back-btn").show(400);
+    user = JSON.stringify(user);
+    $("div#title .back-btn").show(400);
 		$(".back-btn").click(
 			function (e) {
 				$(e.target).hide(400);
@@ -164,43 +189,44 @@ $("#create-slide .submit-creds").click(
 			}
 		);
 
+
 		$.ajax({
 			type: "POST",
       url: "/api-create",
-			data: user,
+      data: user,
      	contentType: "application/json",
+      //dataType: "jsonp",
       crossDomain: true,
       error: function (jqXHR, textStatus, errorThrown) {console.log(textStatus,errorThrown);},
 
-			success: function (result) {
-				//On success, move to next page/note editor
+      success: function (result) {
+        console.log("Request went through like a bad ass");
 				switch(result.error) {
-					case 0: skey = result.key;
-							userID = result._id;
-							$("#secretkey-slide #secretkey").text(skey);
+					case 0: userID = result._id;
+              skey = result.key;
+              $("#secretkey-slide #secretkey").val(skey);
 							trans("#secretkey-slide");
 							break;
-					case 1: $("#login-slide #name").attr("placeholder","PLEASE ENTER A USERNAME").css("color","red").val("");
-							$("#login-slide #password").attr("placeholder","PLEASE ENTER A PASSWORD").css("color","red").val("");
+					case 1: $("#create-slide #name").attr("placeholder","PLEASE ENTER A USERNAME").css("color","red").val("");
+							$("#create-slide #password").attr("placeholder","PLEASE ENTER A PASSWORD").css("color","red").val("");
 							break;// no username or pw
-					case 2: $("#login-slide #name").attr("placeholder","USERNAME ALREADY TAKEN").css("color","red").val("");
-							$("#login-slide #password").val("");
+					case 2: $("#create-slide #name").attr("placeholder","USERNAME ALREADY TAKEN").css("color","red").val("");
+							$("#create-slide #password").val("");
 							break;// user dne
-					case 3: $("#login-slide #name").val("");
-							$("#login-slide #password").attr("placeholder","INCORRECT PASSWORD").css("color","red").val("");
+					case 3: $("#create-slide #name").val("");
+							$("#create-slide #password").attr("placeholder","INCORRECT PASSWORD").css("color","red").val("");
 							break;//wrong user/ pw
 					default:
 				};
 				/*if(result.success) {
-					skey = result.key;
 					userID = result._id;
-					$("#secretkey-slide #secretkey").text(skey);
-					//slide control panel
-					trans("#secretkey-slide");
+					trans("#secretkeyinput-slide");
 				} else {
-					$("#create-slide #name").attr("placeholder","INVALID USERNAME").css("color","red");
-					$("#create-slide #password").attr("placeholder","INVALID PASSWORD").css("color","red");
+					/*TELL THEM THAT THEIR SHIT DONT WORK
+					$("#login-slide #name").attr("placeholder","INCORRECT USERNAME").css("color","red");
+					$("#login-slide #password").attr("placeholder","INCORRECT PASSWORD").css("color","red");
 				}*/
+				//slide control panel
 			}
 		});
 	}
@@ -215,8 +241,11 @@ $("#secretkey-slide #continue").click(
 $("#secretkeyinput-slide .submit-creds").click(
 	function (e) {
 		skey = $("#secretkeyinput").val();
-		var key = {key: skey};
-
+		var key = {
+      "_id": userID,
+      "key": skey
+    };
+    key = JSON.stringify(key);
 		$("div#title .back-btn").show(400);
 		$(".back-btn").click(
 			function (e) {
@@ -226,18 +255,24 @@ $("#secretkeyinput-slide .submit-creds").click(
 		);
 
 		$.ajax({
-			url: "TYPE URL HERE",
 			type: "POST",
-			dataType: "json",
+      url: "/api-notes",
 			data: key,
+      contentType: "application/json",
+      crossDomain: true,
+      error: function (jqXHR, textStatus, errorThrown) {console.log(textStatus,errorThrown);},
+
 			success: function (result) {
+
+        console.log("Request went through like a bad ass");
 				//On success, move to next page
 				//loop thru the json object for file titles to display and create the corresponding HTMLs
-				var data = parseJSON(result);
+				var data = result;
 				$("#explorer-slide li.list-group-item").remove();
-				for(var i = 0; i < data.length; ++i) {
-					$("#explorer-slide ul.list-group").append('<li class="list-group-item" data-id="'+data[i].id+'">'+data[i].name+'<button class="deletefile"></button></li>');
+				for(var i = 0; i < data.list.length; ++i) {
+					$("#explorer-slide ul.list-group").append('<li class="list-group-item" data-id="'+data.list[i].id+'">'+data.list[i].title+'<span class="deletefile">x</span></li>');
 				}
+        $("#explorer-slide ul.list-group li").click(function(e) {loadNote(e,"/api-load");});
 				//slide control panel
 				trans("#explorer-slide");
 			}
@@ -253,20 +288,23 @@ $("#explorer-slide .add-btn").click(
 
 $("#newNote-slide .submit").click(
 	function (e) {
-		req = {
-			_id: userID,
-			name: $("#newNote-slide #title").text(),
-			content: $("#newNote-slide #note").text()
+		var req = {
+			"_id": userID,
+			"title": $("#newNote-slide #title").text(),
+			"content": $("#newNote-slide #note").text()
 		};
+    req = JSON.stringify(req);
 		$.ajax({
+      type: "POST",
 			url: "ADD URL HERE",
-			type: "POST",
-			dataType: "json",
 			data: req,
+      contentType: "application/json",
+      crossDomain: true,
+      error: function (jqXHR, textStatus, errorThrown) {console.log(textStatus,errorThrown);},
 			success: function (result) {
-				result = parseJSON(result);
-				$("#explorer-slide ul.list-group").append('<li class="list-group-item" data-id="'+result.id+'">'+req.name+'<button class="deletefile"></button></li>');
-				trans("#explorer-slide");
+				$("#explorer-slide ul.list-group").append('<li class="list-group-item" data-id="'+result.id+'">'+req.title+'<button class="deletefile"></button></li>');
+				 $("#explorer-slide ul.list-group li").click(function(e) {loadNote(e,"/api-load");});
+        trans("#explorer-slide");
 			}
 		});
 	}
@@ -280,29 +318,6 @@ $("#newNote-slide .cancel").click(
 	}
 );
 
-$("#explorer-slide .list-group-item").click(
-
-	function (e) {
-		$(".list-group-item").hide(".deletefile");
-		currentID = $(e.target).data("id");
-		var req = {
-			key: skey,
-			id: $(e.target).data("id")
-		};
-		$.ajax({
-			url: "TYPE URL HERE",
-			type: "POST",
-			dataType: "json",
-			data: req,
-			success: function (result) {
-				result = parseJSON(result);
-				$("#texteditor-slide #title").val(result.name);
-				$("#texteditor-slide #note").val(result.content);
-				trans(".texteditor-slide");
-			}
-		});
-	}
-);
 
 $("#explorer-slide .list-group-item").dblclick(
 	function (e) {

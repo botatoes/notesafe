@@ -3,10 +3,8 @@ from pymongo import *
 from bson.objectid import ObjectId
 
 client = MongoClient('notesafedb.cloudapp.net', 27017)
-db = client.notesafe
-
-users = db.Users
-notes = db.Notes
+users = client.notesafe.USERS
+notes = client.encrypt.NOTES
 
 def find_user_id(query):
 	return users.find_one({'_id':ObjectId(query)})

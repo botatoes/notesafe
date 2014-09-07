@@ -26,18 +26,18 @@ def ns_login():
 	name=request.json['username']
 	pw=request.json['password']
 	find=find_user_name(name)
-	
+
 	if len(name)<=0 or len(pw)<=0:
 		error=1
-	
+
 	elif find == None:
 		error=2
-	
+
 	elif find['password'] != pw:
-		error=3 
+		error=3
 	else:
 		_id=str(find['_id'])
-	
+
 	return jsonify({"_id":_id, "error":error})
 
 # The create call
@@ -61,15 +61,15 @@ def ns_create():
 		_id=add_user(newuser)
 	return jsonify({"_id":_id, "key":"stub" , "error":error})
 
-# The list call 
-# Requires a POST request on the url /api-list
+# The list call
+# Requires a POST request on the url /api-note
 
 @app.route('/api-notes', methods=['POST'])
 def ns_notes():
-	_id=request.json['_id']
-	seckey=request.json['seckey']
+	userid=request.json['_id']
+	seckey=request.json['key']
 	error=0
-	user=find_user_id(_id)
+	user=find_user_id(userid)
 	pairlist=[]
 
 	if user == None:
@@ -84,3 +84,15 @@ def ns_notes():
 				pairlist.insert(-1,{"id":n, "title":note['title']})
 
 	return jsonify({"error":error, "list":pairlist})
+
+# The note call
+# Requires a POST request on the url /api-load
+
+@app.route('/api-read', methods=['POST'])
+def ns_load():
+	noteid=str(request.json['_id'])
+	seckey=str(request.json['key'])
+	
+	find_note_id(noteid)
+
+	return jsonify({"id":noteid, "key":seckey})
