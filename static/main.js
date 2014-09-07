@@ -12,6 +12,9 @@ var userID = "";
 var currentID = "";
 var lastSlide = "";
 
+var g={};
+
+
 $("div.slide").not(':first').hide();
 //$("div.slide").not("#newNote-slide").hide();
 //console.log("executing");
@@ -92,6 +95,7 @@ $("#login-slide .submit-creds").click(
 			"username": username,
 			"password": $("#login-slide #password").val()
 		};
+    user = JSON.stringify(user);
 		$("div#title .back-btn").show(400);
 		$(".back-btn").click(
 			function (e) {
@@ -101,15 +105,16 @@ $("#login-slide .submit-creds").click(
 		);
 
 		$.ajax({
-			url: "http://notesafe.herokuapp.com/api-login",
 			type: "POST",
-			dataType: "json",
-     			contentType: "application/json",
-			data: JSON.stringify(user),
-			success: function (result) {
-				result = parseJSON(result);
-				//On success, move to next page/note editor
+      url: "/api-login",
+      data: user,
+     	contentType: "application/json",
+      //dataType: "jsonp",
+      crossDomain: true,
+      error: function (jqXHR, textStatus, errorThrown) {console.log(textStatus,errorThrown);},
 
+      success: function (result) {
+        console.log("Request went through like a bad ass");
 				switch(result.error) {
 					case 0: userID = result._id;
 							trans("#secretkeyinput-slide");
@@ -145,9 +150,11 @@ $("#create-slide .submit-creds").click(
 	function (e) {
 		username = $("#create-slide #name").val();
 		var user = {
-			username: username,
-			password: $("#create-slide #name").val()
+			"username": username,
+			"password": $("#create-slide #password").val()
 		};
+    g=JSON.stringify(user);
+    user=g;
 
 		$("div#title .back-btn").show(400);
 		$(".back-btn").click(
@@ -158,12 +165,14 @@ $("#create-slide .submit-creds").click(
 		);
 
 		$.ajax({
-			url: "TYPE URL HERE",
 			type: "POST",
-			dataType: "json",
+      url: "/api-create",
 			data: user,
+     	contentType: "application/json",
+      crossDomain: true,
+      error: function (jqXHR, textStatus, errorThrown) {console.log(textStatus,errorThrown);},
+
 			success: function (result) {
-				result = parseJSON(result);
 				//On success, move to next page/note editor
 				switch(result.error) {
 					case 0: skey = result.key;
@@ -174,7 +183,7 @@ $("#create-slide .submit-creds").click(
 					case 1: $("#login-slide #name").attr("placeholder","PLEASE ENTER A USERNAME").css("color","red").val("");
 							$("#login-slide #password").attr("placeholder","PLEASE ENTER A PASSWORD").css("color","red").val("");
 							break;// no username or pw
-					case 2: $("#login-slide #name").attr("placeholder","USERNAME DOES NOT EXIST").css("color","red").val("");
+					case 2: $("#login-slide #name").attr("placeholder","USERNAME ALREADY TAKEN").css("color","red").val("");
 							$("#login-slide #password").val("");
 							break;// user dne
 					case 3: $("#login-slide #name").val("");

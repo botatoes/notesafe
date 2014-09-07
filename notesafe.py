@@ -59,7 +59,7 @@ def ns_create():
 	else:
 		newuser={"username":name, "password":pw, "pubkey":None, "notes":[]}
 		_id=add_user(newuser)
-	return jsonify({"_id":_id, "error":error})
+	return jsonify({"_id":_id, "key":"stub" , "error":error})
 
 # The list call 
 # Requires a POST request on the url /api-list
