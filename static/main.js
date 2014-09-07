@@ -89,8 +89,8 @@ $("#login-slide .submit-creds").click(
 	function (e) {
 		username = $("#login-slide #name").val();
 		var user = {
-			username: username,
-			password: $("#login-slide #password").val()
+			"username": username,
+			"password": $("#login-slide #password").val()
 		};
 
 		$("div#title .back-btn").show(400);
@@ -105,6 +105,7 @@ $("#login-slide .submit-creds").click(
 			url: "http://notesafe.herokuapp.com/api-login",
 			type: "POST",
 			dataType: "json",
+      contentType: "application/json",
 			data: user,
 			success: function (result) {
 				result = parseJSON(result);
