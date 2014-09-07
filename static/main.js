@@ -108,9 +108,11 @@ $(".FAQ-btn").click(
 		$(".back-btn").click(
 			function (e) {
 				$(e.target).hide(400);
+				$(".FAQ-btn").show();
 				trans("#"+lastSlide);
 			}
 		);
+		$(".FAQ-btn").hide();
 	}
 );
 
