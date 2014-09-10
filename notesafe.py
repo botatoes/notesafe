@@ -2,8 +2,8 @@ import os
 from flask import Flask, request, jsonify
 from flask import render_template
 
-import db
-from db import *
+import database
+from database import *
 import json
 
 import encryption
