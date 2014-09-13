@@ -2,7 +2,7 @@ import pymongo
 from pymongo import *
 from bson.objectid import ObjectId
 
-client = MongoClient('notesafedb.cloudapp.net', 27017)
+client = MongoClient('localhost', 27017)
 data = client.notesafe.data
 
 def find_user_id(query):
